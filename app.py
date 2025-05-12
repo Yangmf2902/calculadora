@@ -9,11 +9,14 @@ def calcular():
         valor_inicial = float(request.form['valor_inicial'])
         taxa_juros = float(request.form['taxa_juros']) / 100
         tempo = int(request.form['tempo'])
+        tipo_juros = request.form['tipo_juros']
 
-        # Fórmula de juros compostos: VF = VI * (1 + i) ** t
-        resultado = valor_inicial * (1 + taxa_juros) ** tempo
+        if tipo_juros == 'compostos':
+            resultado = valor_inicial * (1 + taxa_juros) ** tempo
+        elif tipo_juros == 'simples':
+            resultado = valor_inicial + (valor_inicial * taxa_juros * tempo)
 
     return render_template('page.html', resultado=resultado)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) 
